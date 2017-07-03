@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>com.castsoftware.uc.telon</id>
+    <version>0.0.1</version>
+    <title>TELON support</title>
+    <authors>User Community</authors>
+    <owners>CAST</owners>
+    <projectUrl>https://github.com/CAST-Extend/com.castsoftware.uc.telon</projectUrl>
+	<licenseUrl>http://www.castsoftware.com/ps/doc/extension/license</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This extension excludes quality rule violations from generated TELON code</description>
+	<tags>COBOL TELON</tags>
+    <releaseNotes></releaseNotes>
+    <dependencies>
+      <dependency id="CAIP" version="7.3.6" />
+    </dependencies>
+  </metadata>
+</package>
