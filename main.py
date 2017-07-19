@@ -49,18 +49,24 @@ class FilterViolations(ApplicationLevelExtension):
         for prop in properties:
             application.declare_property_ownership(prop, 'CAST_COBOL_SavedProgram')
         
+        number_of_programs = 0
+        number_of_telon_programs = 0
+        number_of_violations = 0
+        number_of_kept_violations = 0
+        
         for program in application.objects().has_type('CAST_COBOL_SavedProgram').load_violations(properties):
             
             # 1. get the violations for that program
             
             # a Cobol violation can be in a copybook, we group violations per file
             violations_per_file = {}
+            number_of_programs += 1
+            is_telon = False
             
             for prop in properties:
                 
                 for violation in program.get_violations(prop):
                     
-                    logging.info(str(violation))
                     _file = violation[1].file
                     if _file not in violations_per_file:
                         violations_per_file[_file] = []
@@ -95,9 +101,12 @@ class FilterViolations(ApplicationLevelExtension):
                                                 current_line, -1)
                             
                             bookmarks.append(bookmark)
-                
+                            is_telon = True
+
                 # filter the violations that reside in at least one 'user code bookmark'
                 for violation in violations:
+                    
+                    number_of_violations += 1
                     
                     for bookmark in bookmarks:
                         # use of contains operator
@@ -108,13 +117,19 @@ class FilterViolations(ApplicationLevelExtension):
                         # case where we do not have any marker : keep all violations : maybe we are not in TELON environment
                         user_code_violations.append(violation)
             
-            logging.info('saving violations')
+            if is_telon:
+                number_of_telon_programs += 1
+            
             # 3. save back user_code_violations
             for violation in user_code_violations:
-                logging.info(violation)
+                
+                number_of_kept_violations += 1
+                
                 # violation 'format' is almost directly usable as parameter   
                 program.save_violation(violation[0], violation[1], violation[2])
                 
             # et hop !
-
+            
+        logging.info('Found %s TELON programs out of %s programs' % (number_of_telon_programs, number_of_programs))
+        logging.info('Kept %s violation bookmarks out of %s' % (number_of_kept_violations, number_of_violations))
         logging.info("Done filtering violations")
