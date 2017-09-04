@@ -53,6 +53,8 @@ class FilterViolations(ApplicationLevelExtension):
         number_of_telon_programs = 0
         number_of_violations = 0
         number_of_kept_violations = 0
+        telon_LOC = 0 
+        total_LOC = 0 
         
         for program in application.objects().has_type('CAST_COBOL_SavedProgram').load_violations(properties):
             
@@ -86,6 +88,7 @@ class FilterViolations(ApplicationLevelExtension):
                     
                     begin_line = 0
                     current_line = 0
+                    number_of_telon_LOC_in_current_program = 0 
                     
                     for line in f:
                         current_line += 1
@@ -95,6 +98,7 @@ class FilterViolations(ApplicationLevelExtension):
                             begin_line = current_line
                         elif is_end(line):
                             # add a user code bookmark
+                            end_line = current_line 
                             bookmark = Bookmark(_file, 
                                                 begin_line,
                                                 1,
@@ -102,6 +106,7 @@ class FilterViolations(ApplicationLevelExtension):
                             
                             bookmarks.append(bookmark)
                             is_telon = True
+                            number_of_telon_LOC_in_current_program += (end_line - begin_line +1) 
 
                 # filter the violations that reside in at least one 'user code bookmark'
                 for violation in violations:
@@ -118,7 +123,12 @@ class FilterViolations(ApplicationLevelExtension):
                         user_code_violations.append(violation)
             
             if is_telon:
-                number_of_telon_programs += 1
+                number_of_telon_programs += 1 
+                logging.info('Number of TELON LOC in current program [%s]: %s on a total of %s LOC' % (_file.get_path(), number_of_telon_LOC_in_current_program, current_line))
+                total_LOC += current_line
+                telon_LOC += number_of_telon_LOC_in_current_program
+            else: 
+                logging.info('File [%s] does not contain any Telon code' % (_file.get_path()))
             
             # 3. save back user_code_violations
             for violation in user_code_violations:
@@ -132,4 +142,5 @@ class FilterViolations(ApplicationLevelExtension):
             
         logging.info('Found %s TELON programs out of %s programs' % (number_of_telon_programs, number_of_programs))
         logging.info('Kept %s violation bookmarks out of %s' % (number_of_kept_violations, number_of_violations))
+        logging.info('Number of TELON LOC : %s on a total of %s LOC, which means %s percent of generated LOC' % (telon_LOC, total_LOC, round(telon_LOC*100/total_LOC,2)))
         logging.info("Done filtering violations")

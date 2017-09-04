@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>com.castsoftware.uc.telon</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <title>CA-TELON support</title>
     <authors>User Community</authors>
     <owners>CAST</owners>
