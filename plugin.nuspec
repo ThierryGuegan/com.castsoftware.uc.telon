@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>com.castsoftware.uc.telon</id>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <title>CA-TELON support</title>
     <authors>User Community</authors>
     <owners>CAST</owners>
@@ -12,7 +12,9 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>This extension excludes violations from generated TELON code (for standard COBOL quality rules supporting bookmarks)</description>
 	<tags>COBOL mainframe Quality CA-TELON</tags>
-    <releaseNotes></releaseNotes>
+    <releaseNotes>
+- better report
+    </releaseNotes>
     <dependencies>
       <dependency id="CAIP" version="7.3.6" />
     </dependencies>
