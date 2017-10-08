@@ -95,7 +95,7 @@ class FilterViolations(ApplicationLevelExtension):
                 
                 with open_source_file(_file.get_path()) as f:
 
-                    logging.info('current file (%s) =[ %s ] ' % (CobolFileType, _file.get_path()))
+                    logging.debug('current file (%s) =[ %s ] ' % (CobolFileType, _file.get_path()))
 
                     begin_line = 0
                     current_line = 0
@@ -138,11 +138,11 @@ class FilterViolations(ApplicationLevelExtension):
                         user_code_violations.append(violation)
             
                 if (number_of_telon_LOC_in_current_file != 0):
-                    logging.info('Number of TELON LOC in current file [%s]: %s on a total of %s LOC' % (_file.get_path(), number_of_telon_LOC_in_current_file, current_line))
+                    logging.debug('Number of TELON LOC in current file [%s]: %s on a total of %s LOC' % (_file.get_path(), number_of_telon_LOC_in_current_file, current_line))
                     total_LOC += current_line
                     telon_LOC += number_of_telon_LOC_in_current_file
                 else: 
-                    logging.info('File [%s] does not contain any Telon code, file LOC = %s' % (_file.get_path(), current_line))
+                    logging.debug('File [%s] does not contain any Telon code, file LOC = %s' % (_file.get_path(), current_line))
                     total_LOC += current_line
 
             if is_telon:
