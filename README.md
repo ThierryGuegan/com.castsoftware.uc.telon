@@ -18,8 +18,7 @@ Only COBOL quality rule violation that is part of a non generated code block wil
 	000057       *----------------------------------------------! END REMARKS    ----
 
 
-This only applies to COBOL quality rules with bookmarks so:
-
+This only applies to COBOL quality rules with bookmarks so the following in 8.2:
 * Avoid using HANDLE CONDITION
 * Avoid using IGNORE CONDITION
 * Avoid using HANDLE ABEND
