@@ -74,6 +74,8 @@ CSS
 ## Changelog
 
 1.0.0 : ...
+
 1.0.2 : ... 
+
 1.0.4 : various fix and changes consecutive to new deployments. Take into account other versions of Telon 
 
