@@ -66,3 +66,14 @@ This only applies to COBOL quality rules with bookmarks so:
 * Avoid using READ statement without AT END clause
 * Check alphanumeric data before moving them into numeric data
 * Variables defined in Working-Storage section must be initialized before to be read
+
+
+## Supported DBMS servers
+CSS
+
+## Changelog
+
+1.0.0 : ...
+1.0.2 : ... 
+1.0.4 : various fix and changes consecutive to new deployments. Take into account other versions of Telon 
+
